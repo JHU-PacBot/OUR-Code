@@ -9,6 +9,7 @@ class WeightedGraphNode:
         return self.weight
 
     def add_edge(self, neighbor):
+        # add bidirectionally
         self.neighbors.append(neighbor)
         neighbor.neighbors.append(self)
 
