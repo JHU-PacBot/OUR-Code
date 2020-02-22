@@ -59,13 +59,11 @@ class MazeGraphMatrix:
 
                     # link up
                     if self.grid[y-1][x] == 'pellet' or self.grid[y-1][x] == 'power pellet':
-                        self.matrix[y][x].neighbors.append(self.matrix[y-1][x])
-                        self.matrix[y-1][x].neighbors.append(self.matrix[y][x])
+                        self.matrix[y][x].neighbors.add_edge(self.matrix[y-1][x])
 
                     # link left
                     if self.grid[y][x-1] == 'pellet' or self.grid[y][x-1] == 'power pellet':
-                        self.matrix[y][x].neighbors.append(self.matrix[y][x-1])
-                        self.matrix[y][x-1].neighbors.append(self.matrix[y][x])
+                        self.matrix[y][x].neighbors.add_edge(self.matrix[y][x-1])
 
     def node_at(self, x, y):
         return self.matrix[y][x]
