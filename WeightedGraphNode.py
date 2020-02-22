@@ -10,3 +10,9 @@ class WeightedGraphNode:
 
     def add_edge(self, neighbor):
         self.neighbors.append(neighbor)
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __ne__(self, other):
+        return not(__eq(self, other))
