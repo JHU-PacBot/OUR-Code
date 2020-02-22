@@ -14,19 +14,18 @@ def a_star(start, goal):
     pq = [(0, PathNode.PathNode(start))]
     # start node gets 0 cost
 
-    current_path_node = pq[0]
+    current_path_node = pq[0][1]
 
     # keep running until either reach the goal or run out of paths to pop
     while current_path_node.graphNode != goal and len(pq) > 0:
-
         # decompose the tuple to get the path node itself
         (_, current_path_node) = heapq.heappop(pq)
 
         for neighbor in current_path_node.graphNode.neighbors:
             # add the adjacent nodes in the graph to the heap as new paths
             heapq.heappush(pq, (
-                current_path_node.WeightedGraphNode.weight() + neighbor.WeightedGraphNode.weight() +
-                heuristic(current_path_node, neighbor),
+                current_path_node.graphNode.weight + neighbor.weight +
+                heuristic(current_path_node.graphNode, neighbor),
                 PathNode.PathNode(neighbor, current_path_node)))
 
     # at this point, current_path_node should contain the goal graph node and the shortest path
