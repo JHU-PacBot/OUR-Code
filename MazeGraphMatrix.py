@@ -1,5 +1,7 @@
 import WeightedGraphNode
 
+import botCode.robomodules
+
 
 class MazeGraphMatrix:
 
