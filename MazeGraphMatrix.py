@@ -1,6 +1,6 @@
 import WeightedGraphNode
 
-import botCode.robomodules
+import botCode.botCode.robomodules
 
 
 class MazeGraphMatrix:
@@ -41,31 +41,34 @@ class MazeGraphMatrix:
     #        |         |         |         |         |         |         |
     #        0         5        10        15       20         25       30
 
-    matrix = [[]]
+    matrix = [[WeightedGraphNode for i in range(30)] for j in range(30)]
 
     # in iteration, start at 1 because edges are borders
 
     def __init__(self):
+        # print len(self.matrix)
         for y in range(1, len(self.grid) - 1):
             for x in range(1, len(self.grid[0]) - 1):
                 # iterate through the maze
                 if self.grid[y][x] == 'pellet' or self.grid[y][x] == 'power pellet':
                     # add pellet space to graph matrix
                     if self.grid[y][x] == 'pellet':
-                        self.matrix[y][x] = WeightedGraphNode.WeightedGraphNode(-1, x, y)
+                        print "x: ", x, " y: ", y
+                        self.matrix[y][x] = WeightedGraphNode.WeightedGraphNode(x, y, -1)
                     else:
                         # power pellets have a very high weight so we avoid them until we specifically seek them out
-                        self.matrix[y][x] = WeightedGraphNode.WeightedGraphNode(100000, x, y)
+                        self.matrix[y][x] = WeightedGraphNode.WeightedGraphNode(x, y, 100000)
 
                     # iterate down-right; add double edges up-left of current space
 
                     # link up
                     if self.grid[y-1][x] == 'pellet' or self.grid[y-1][x] == 'power pellet':
-                        self.matrix[y][x].neighbors.add_edge(self.matrix[y-1][x])
+                        self.matrix[y][x].add_edge(self.matrix[y-1][x])
 
                     # link left
                     if self.grid[y][x-1] == 'pellet' or self.grid[y][x-1] == 'power pellet':
-                        self.matrix[y][x].neighbors.add_edge(self.matrix[y][x-1])
+                        self.matrix[y][x].add_edge(self.matrix[y][x-1])
 
     def node_at(self, x, y):
+        print "node_at", self.matrix[y][x].__class__
         return self.matrix[y][x]

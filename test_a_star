@@ -1,0 +1,18 @@
+import A_Star
+import MazeGraphMatrix
+import WeightedGraphNode
+
+
+def main():
+    print("hello")
+    graph = MazeGraphMatrix.MazeGraphMatrix()
+
+    path = A_Star.a_star(graph.node_at(1, 1), graph.node_at(3, 4), graph)
+
+    current = path
+    while current.previousNode is not None:
+        print(current.previousNode)
+        current = current.previousNode
+
+if __name__ == '__main__':
+    main()
